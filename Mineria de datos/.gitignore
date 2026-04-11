@@ -1,0 +1,17 @@
+cat > .gitignore << 'EOF'
+.DS_Store
+.localized
+*.jpeg
+*.jpg
+Captura de pantalla*
+Users
+ford.png
+Copia de Programacion Dispositvos Moviles/
+Programacion Dispositvos Moviles/
+EOF
+
+
+echo ".DS_Store" >> .gitignore
+echo "*.pdf" >> .gitignore
+echo "Copia de Programacion Dispositvos Moviles/" >> .gitignore
+echo "Programacion Dispositvos Moviles/" >> .gitignore
