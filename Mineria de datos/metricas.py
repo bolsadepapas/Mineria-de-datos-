@@ -11,71 +11,56 @@ def raiz_cuadrada(valor):
 
 # 2. Algoritmos de similitud/distancia
 
+# Modifica estas funciones en metricas.py para que retornen (valor, n_comunes)
+
 def distancia_manhattan(user1_dict, user2_dict):
     comunes = [item for item in user1_dict if item in user2_dict]
-    if len(comunes) == 0:
-        return float('inf')
+    n = len(comunes)
+    if n == 0: return float('inf'), 0
         
     distancia = 0
     for item in comunes:
         diferencia = user1_dict[item] - user2_dict[item]
         distancia += diferencia if diferencia >= 0 else -diferencia
-        
-    return distancia
+    return distancia, n
 
 def distancia_euclidiana(user1_dict, user2_dict):
     comunes = [item for item in user1_dict if item in user2_dict]
-    if len(comunes) == 0:
-        return float('inf')
+    n = len(comunes)
+    if n == 0: return float('inf'), 0
         
     suma_cuadrados = 0
     for item in comunes:
         diferencia = user1_dict[item] - user2_dict[item]
         suma_cuadrados += diferencia ** 2
-        
-    return raiz_cuadrada(suma_cuadrados)
+    return raiz_cuadrada(suma_cuadrados), n
 
 def correlacion_pearson(user1_dict, user2_dict):
     comunes = [item for item in user1_dict if item in user2_dict]
     n = len(comunes)
-    if n == 0: return 0
+    if n < 2: return 0, n # Pearson necesita al menos 2 para no dar error
 
     x = [user1_dict[item] for item in comunes]
     y = [user2_dict[item] for item in comunes]
+    prom_x, prom_y = sum(x)/n, sum(y)/n
 
-    prom_x = sum(x) / n
-    prom_y = sum(y) / n
-
-    num = 0
-    sum_x_diff_sq = 0
-    sum_y_diff_sq = 0
-
-    for i in range(n):
-        dx = x[i] - prom_x
-        dy = y[i] - prom_y
-        num += dx * dy
-        sum_x_diff_sq += dx ** 2
-        sum_y_diff_sq += dy ** 2
+    num = sum((x[i]-prom_x)*(y[i]-prom_y) for i in range(n))
+    sum_x_diff_sq = sum((x[i]-prom_x)**2 for i in range(n))
+    sum_y_diff_sq = sum((y[i]-prom_y)**2 for i in range(n))
 
     den = raiz_cuadrada(sum_x_diff_sq) * raiz_cuadrada(sum_y_diff_sq)
-    return num / den if den != 0 else 0
+    return (num / den if den != 0 else 0), n
 
 def similitud_coseno(user1_dict, user2_dict):
     comunes = [item for item in user1_dict if item in user2_dict]
-    if len(comunes) == 0:
-        return 0
-        
-    numerador = sum(user1_dict[item] * user2_dict[item] for item in comunes)
+    n = len(comunes)
+    if n == 0: return 0, 0
     
-    suma_user1 = sum(user1_dict[item] ** 2 for item in user1_dict)
-    suma_user2 = sum(user2_dict[item] ** 2 for item in user2_dict)
-    
-    denominador = raiz_cuadrada(suma_user1) * raiz_cuadrada(suma_user2)
-    
-    if denominador == 0:
-        return 0
-        
-    return numerador / denominador
+    num = sum(user1_dict[item] * user2_dict[item] for item in comunes)
+    sum_u1 = sum(v**2 for v in user1_dict.values())
+    sum_u2 = sum(v**2 for v in user2_dict.values())
+    den = raiz_cuadrada(sum_u1) * raiz_cuadrada(sum_u2)
+    return (num / den if den != 0 else 0), n 
 
 
 # 3. Visualización de resultados con plot, es generico, grafico de barras 
