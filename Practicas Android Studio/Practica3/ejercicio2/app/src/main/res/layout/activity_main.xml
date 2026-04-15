@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="#121212">
+
+    <!-- Título de la canción -->
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Canción"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Controles de reproducción -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnPrev"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="⏮"
+            android:textSize="24sp"
+            android:backgroundTint="#1DB954"
+            android:textColor="#FFFFFF"
+            android:layout_margin="8dp" />
+
+        <Button
+            android:id="@+id/btnPlayPause"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="⏯"
+            android:textSize="28sp"
+            android:backgroundTint="#1DB954"
+            android:textColor="#FFFFFF"
+            android:layout_margin="12dp" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="⏭"
+            android:textSize="24sp"
+            android:backgroundTint="#1DB954"
+            android:textColor="#FFFFFF"
+            android:layout_margin="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
